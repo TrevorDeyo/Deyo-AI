@@ -1,0 +1,9 @@
+Step 1 Speech to text
+
+Step 2 retrieval-augmented generation 
+RAG is an AI framework for retrieving facts from an external knowledge base to ground large language models (LLMs)
+on the most accurate, up-to-date information and to give users insight into LLMs' generative process.
+
+Step 3 llm 
+Step 4 text to speech
+
