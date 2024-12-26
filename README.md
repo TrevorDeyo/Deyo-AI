@@ -1,2 +1,2 @@
-# SkyeAI
+# DeyoAI
  A conversational AI
