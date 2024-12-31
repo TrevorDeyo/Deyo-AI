@@ -1,20 +1,31 @@
-FROM python:3.13-slim
+# Use Python 3.9 as the base image
+FROM python:3.9-slim
 
-# Set working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Install system dependencies (including build tools)
+# Install dependencies for building and FFmpeg for audio processing
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     build-essential \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies (Whisper and Flask)
-RUN pip install --no-cache-dir torch openai-whisper flask
+# Upgrade setuptools and wheel
+RUN pip install --no-cache-dir --upgrade setuptools wheel
+
+# Install dependencies for Cython, NumPy, SciPy, and PyTorch first
+RUN pip install --no-cache-dir cython numpy==1.23.5 scipy
+RUN pip install --no-cache-dir torch==1.10.1
+
+# Install openai-whisper and flask (use a stable release)
+RUN pip install --no-cache-dir openai-whisper flask
 
 # Copy the application code into the container
-COPY stt_service.py .
+COPY . /app
 
-# Run the STT service
+# Expose the application port (if needed for Flask)
+EXPOSE 5000
+
+# Command to run the app (you can adjust this for your setup)
 CMD ["python", "stt_service.py"]
