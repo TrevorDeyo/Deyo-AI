@@ -6,22 +6,25 @@ WORKDIR /app
 
 # Set the timezone non-interactively
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Update and install dependencies, including pip
 RUN apt-get update && apt-get install -y \
     tzdata \
     ffmpeg \
     build-essential \
     python3-dev \
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 # Upgrade setuptools and wheel
-RUN pip install --no-cache-dir --upgrade setuptools wheel
+RUN pip3 install --no-cache-dir --upgrade setuptools wheel
 
 # Install dependencies for Cython, NumPy, SciPy, and PyTorch with CUDA support
-RUN pip install --no-cache-dir cython numpy==1.23.5 scipy
-RUN pip install --no-cache-dir torch==1.10.1+cu118  # Make sure you're using the correct CUDA version
+RUN pip3 install --no-cache-dir cython numpy==1.23.5 scipy
+RUN pip3 install --no-cache-dir torch==1.10.1+cu118  # Make sure you're using the correct CUDA version
 
 # Install openai-whisper and flask (use a stable release)
-RUN pip install --no-cache-dir openai-whisper flask
+RUN pip3 install --no-cache-dir openai-whisper flask
 
 # Copy the application code into the container
 COPY . /app
@@ -30,4 +33,4 @@ COPY . /app
 EXPOSE 5000
 
 # Command to run the app (you can adjust this for your setup)
-CMD ["python", "stt_service.py"]
+CMD ["python3", "stt_service.py"]
