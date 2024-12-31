@@ -1,6 +1,16 @@
-FROM python:3
-WORKDIR /usr/src/app
+FROM python:3.13-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install necessary system dependencies
 RUN apt-get update && apt-get install -y ffmpeg
-RUN pip install --no-cache-dir torch openai-whisper
+
+# Install Python dependencies
+RUN pip install --no-cache-dir torch openai-whisper flask
+
+# Copy the application code into the container
 COPY whisper_service.py .
+
+# Run the application
 CMD ["python", "whisper_service.py"]
