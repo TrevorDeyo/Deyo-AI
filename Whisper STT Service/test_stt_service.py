@@ -4,7 +4,7 @@ import requests
 url = "http://localhost:5001/transcribe"
 
 # Path to the audio file you want to transcribe
-audio_file_path = r"C:\Users\tdeyo\Desktop\Code\DeyoAI\Whisper STT Service\TestRecording.m4a"  # Replace with the path to your audio file
+audio_file_path = r"C:\Users\tdeyo\Desktop\Code\DeyoAI\Whisper STT Service\TestRecording.mp3"  # Replace with the path to your audio file
 
 # Open the audio file in binary mode
 with open(audio_file_path, 'rb') as audio_file:
