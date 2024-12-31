@@ -1,0 +1,6 @@
+FROM python:3
+WORKDIR /usr/src/app
+RUN apt-get update && apt-get install -y ffmpeg
+RUN pip install --no-cache-dir torch openai-whisper
+COPY whisper_service.py .
+CMD ["python", "whisper_service.py"]
