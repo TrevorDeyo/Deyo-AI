@@ -3,9 +3,11 @@ FROM python:3.13-slim
 # Set working directory inside the container
 WORKDIR /app
 
-# Install system dependencies (e.g., ffmpeg for audio processing)
+# Install system dependencies (including build tools)
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    build-essential \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies (Whisper and Flask)
