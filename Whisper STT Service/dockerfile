@@ -1,16 +1,18 @@
 FROM python:3.13-slim
 
-# Set the working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
-# Install necessary system dependencies
-RUN apt-get update && apt-get install -y ffmpeg
+# Install system dependencies (e.g., ffmpeg for audio processing)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Install Python dependencies (Whisper and Flask)
 RUN pip install --no-cache-dir torch openai-whisper flask
 
 # Copy the application code into the container
-COPY whisper_service.py .
+COPY stt_service.py .
 
-# Run the application
-CMD ["python", "whisper_service.py"]
+# Run the STT service
+CMD ["python", "stt_service.py"]
