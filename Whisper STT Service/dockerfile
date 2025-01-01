@@ -19,9 +19,11 @@ RUN apt-get update && apt-get install -y \
 # Upgrade setuptools and wheel
 RUN pip3 install --no-cache-dir --upgrade setuptools wheel
 
-# Install dependencies for Cython, NumPy, SciPy, and PyTorch with CUDA support
+# Install dependencies for Cython, NumPy, and SciPy
 RUN pip3 install --no-cache-dir cython numpy==1.23.5 scipy
-RUN pip3 install --no-cache-dir torch==1.10.1+cu118  # Make sure you're using the correct CUDA version
+
+# Install PyTorch with CUDA support from the official PyTorch index
+RUN pip3 install --no-cache-dir torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 
 # Install openai-whisper and flask (use a stable release)
 RUN pip3 install --no-cache-dir openai-whisper flask
