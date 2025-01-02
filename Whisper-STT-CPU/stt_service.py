@@ -1,9 +1,5 @@
 from flask import Flask, request, jsonify
 import whisper
-import torch
-
-print(f"Is CUDA available? {torch.cuda.is_available()}")
-print(f"Using device: {torch.cuda.current_device()}")
 
 app = Flask(__name__)
 model = whisper.load_model("base")  # You can change this to other models like "large" if needed
