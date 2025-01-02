@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  stt_cpu:
+    build:
+      context: ./Whisper-STT-CPU
+    ports:
+      - "5001:5001"
+    container_name: stt-service-cpu
+
+  stt_gpu:
+    build:
+      context: ./Whisper-STT-GPU
+    ports:
+      - "5002:5001"
+    container_name: stt-service-gpu
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
