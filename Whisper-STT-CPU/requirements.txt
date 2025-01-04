@@ -1,5 +1,5 @@
 flask
 openai-whisper
 torch==1.10.1  # CPU version for CPU, GPU version for GPU
-numpy
+numpy==1.21.0  # Specify the version of numpy
 scipy
