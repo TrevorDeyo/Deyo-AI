@@ -8,9 +8,9 @@ GPU_URL = "http://localhost:5002/transcribe"
 
 # Audio file(s) for testing
 audio_files = [
-    "path/to/audio1.mp3",  # Short file
-    "path/to/audio2.wav",  # Medium file
-    "path/to/audio3.flac", # Long file
+    "TestShort.mp3",  # Short file
+    "TestMedium.mp3",  # Medium file
+    "TestLong.mp3", # Long file
 ]
 
 # Function to test an endpoint
