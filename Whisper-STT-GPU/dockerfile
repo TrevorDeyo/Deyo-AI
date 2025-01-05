@@ -32,4 +32,5 @@ COPY . .
 EXPOSE 5001
 
 # Run the app
+CMD ["nvidia-smi"]
 CMD ["python", "stt_service.py"]

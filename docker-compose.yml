@@ -1,10 +1,10 @@
 services:
-  stt_cpu:
-    build:
-      context: ./Whisper-STT-CPU
-    ports:
-      - "5001:5001"
-    container_name: stt-service-cpu
+  # stt_cpu:
+  #   build:
+  #     context: ./Whisper-STT-CPU
+  #   ports:
+  #     - "5001:5001"
+  #   container_name: stt-service-cpu
 
   stt_gpu:
     build:
