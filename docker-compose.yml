@@ -1,11 +1,4 @@
 services:
-  # stt_cpu:
-  #   build:
-  #     context: ./Whisper-STT-CPU
-  #   ports:
-  #     - "5001:5001"
-  #   container_name: stt-service-cpu
-
   stt_gpu:
     build:
       context: ./Whisper-STT-GPU
@@ -19,3 +12,30 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+  godel:
+    build:
+      context: ./Godel
+    ports:
+        - "5000:5000"
+    container_name: godel-app
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+
+  vectordb:
+    build:
+      context: ./VectorDB
+    ports:
+      - "5001:5001"
+    container_name: vector-db
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - godel

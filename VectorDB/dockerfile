@@ -1,0 +1,21 @@
+FROM python:3.9-slim
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install FAISS, Flask, and Gunicorn
+RUN pip3 install faiss-cpu flask gunicorn
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application code
+COPY . /app
+
+# Expose the database port
+EXPOSE 5001
+
+# Set the entrypoint to use Gunicorn
+CMD ["gunicorn", "-c", "gunicorn_config.py", "vector_db_service:app"]

@@ -1,0 +1,8 @@
+Flask 
+open ai whisper 
+docker 
+pytorch
+cuda docker
+numpy
+gunicorn
+nginx
