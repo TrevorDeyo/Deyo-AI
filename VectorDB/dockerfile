@@ -17,5 +17,8 @@ COPY . /app
 # Expose the database port
 EXPOSE 5001
 
-# Set the entrypoint to use Gunicorn
-CMD ["gunicorn", "-c", "gunicorn_config.py", "vector_db_service:app"]
+# Copy the script to calculate workers
+COPY calculate_workers.py /app
+
+# Set the entrypoint to use Gunicorn with dynamic workers
+CMD ["sh", "-c", "gunicorn -c gunicorn_config.py --workers $(python3 calculate_workers.py) vector_db_service:app"]

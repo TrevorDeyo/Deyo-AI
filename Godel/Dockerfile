@@ -17,5 +17,8 @@ COPY . /app
 # Copy Gunicorn configuration
 COPY gunicorn_config.py /app
 
-# Set the entrypoint
-ENTRYPOINT ["gunicorn", "-c", "gunicorn_config.py", "app:app"]
+# Copy the script to calculate workers
+COPY calculate_workers.py /app
+
+# Set the entrypoint to use Gunicorn with dynamic workers
+CMD ["sh", "-c", "gunicorn -c gunicorn_config.py --workers $(python3 calculate_workers.py) godel_service:app"]
