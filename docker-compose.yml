@@ -13,21 +13,18 @@ services:
               count: 1
               capabilities: [gpu]
 
-  godel:
+  deepseek:
     build:
-      context: ./Godel
+      context: ./DeepSeek # Assuming your DeepSeek Dockerfile is in a folder named DeepSeek
     ports:
-      - "5000:5000"
-    container_name: godel-app
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - "5000:30000" # Map host port 5000 to container port 30000 (SGLang default)
+    container_name: deepseek-app
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              count: 1 # Adjust count based on your needs and the '--tp' value in your Dockerfile
               capabilities: [gpu]
 
   vectordb:
@@ -45,4 +42,4 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - godel
+      - deepseek # Changed dependency from godel to deepseek
