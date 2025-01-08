@@ -17,7 +17,7 @@ services:
     build:
       context: ./DeepSeek
     ports:
-      - "5000:30000"
+      - "30000:30000"
     container_name: deepseek
     deploy:
       resources:

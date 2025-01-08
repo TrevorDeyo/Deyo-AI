@@ -15,9 +15,6 @@ RUN pip3 install -r requirements.txt
 # Copy Gunicorn configuration
 COPY gunicorn_config.py /app
 
-# Copy the script to calculate workers
-COPY calculate_workers.py /app
-
 # Copy the application code
 COPY . /app
 
@@ -25,4 +22,4 @@ COPY . /app
 EXPOSE 5001
 
 # Set the entrypoint to use Gunicorn with dynamic workers
-CMD ["sh", "-c", "gunicorn -c gunicorn_config.py --workers $(python3 calculate_workers.py) vector_db_service:app"]
+CMD ["sh", "-c", "gunicorn -c gunicorn_config.py vector_db_service:app"]
