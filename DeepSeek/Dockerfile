@@ -20,4 +20,4 @@ COPY . /app
 EXPOSE 30000
 
 # Define the command to start both the SGLang server and Gunicorn
-CMD sh -c "python3 -m sglang.launch_server --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code --port 30000 & gunicorn -c gunicorn_config.py --workers \$(python3 calculate_workers.py) deepseek_service:app"
+CMD sh -c "python3 -m sglang.launch_server --model deepseek-ai/DeepSeek-V3 --tp 1 --trust-remote-code --port 30000 & gunicorn -c gunicorn_config.py --workers \$(python3 calculate_workers.py) deepseek_service:app"

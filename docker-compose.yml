@@ -1,16 +1,16 @@
 services:
-  stt_gpu:
+  whisper-stt:
     build:
-      context: ./Whisper-STT-GPU
+      context: ./Whisper-STT
     ports:
       - "5002:5001"
-    container_name: stt-service-gpu
+    container_name: whisper-stt
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              count: all
               capabilities: [gpu]
 
   deepseek:
@@ -18,13 +18,13 @@ services:
       context: ./DeepSeek
     ports:
       - "5000:30000"
-    container_name: deepseek-app
+    container_name: deepseek
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              count: all
               capabilities: [gpu]
 
   vectordb:
@@ -43,5 +43,5 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - deepseek
-      - stt_gpu
+      - whisper-stt
       - vectordb
