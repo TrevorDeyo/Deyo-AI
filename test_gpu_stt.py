@@ -1,19 +1,24 @@
 import requests
 import time
 import matplotlib.pyplot as plt
+import os
 
 # Define the GPU endpoint
 GPU_URL = "http://localhost:5002/transcribe"
 
 # Audio file(s) for testing
 audio_files = [
-    "TestShort.mp3",  # Short file
-    "TestMedium.mp3",  # Medium file
-    "TestLong.mp3", # Long file
+    r"C:\Users\tdeyo\Desktop\Code\DeyoAI\TestShort.mp3",  # Short file
+    r"C:\Users\tdeyo\Desktop\Code\DeyoAI\TestMedium.mp3",  # Medium file
+    r"C:\Users\tdeyo\Desktop\Code\DeyoAI\TestLong.mp3", # Long file
 ]
 
 # Function to test the GPU endpoint
 def test_gpu_endpoint(url, file_path):
+    if not os.path.exists(file_path):
+        print(f"File not found: {file_path}")
+        return None, {"error": "File not found"}
+
     with open(file_path, "rb") as audio_file:
         files = {"file": audio_file}
         start_time = time.time()
@@ -36,8 +41,11 @@ def run_gpu_tests():
         
         # Test GPU
         gpu_time, gpu_result = test_gpu_endpoint(GPU_URL, file_path)
-        print(f"GPU: {gpu_time}s, Result: {gpu_result}")
-        results.append(gpu_time)
+        if gpu_time is not None:
+            print(f"GPU: {gpu_time}s, Result: {gpu_result}")
+            results.append(gpu_time)
+        else:
+            print(f"Error testing file {file_path}: {gpu_result['error']}")
 
     return results
 
