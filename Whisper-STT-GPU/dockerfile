@@ -16,8 +16,12 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 WORKDIR /app
 
 # Copy requirements file and install Python dependencies
+#COPY requirements.txt .
+#RUN pip install -r requirements.txt
+
+# Copy requirements file and install Python dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN rm -rf /root/.cache/whisper && pip install --no-cache-dir -r requirements.txt
 
 # Copy Gunicorn configuration
 COPY gunicorn_config.py /app
