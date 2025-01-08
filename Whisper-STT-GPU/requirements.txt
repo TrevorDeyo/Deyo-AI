@@ -2,6 +2,7 @@ flask
 openai-whisper
 numpy
 scipy
+triton==3.0.0
 torch
 torchvision
 gunicorn
