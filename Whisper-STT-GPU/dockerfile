@@ -15,19 +15,21 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # Set working directory
 WORKDIR /app
 
-# Install Python dependencies
-RUN pip install flask openai-whisper numpy scipy \
-    && pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 -f https://download.pytorch.org/whl/torch_stable.html \
-    && pip install gunicorn
-
-# Copy application code
-COPY . .
+# Copy requirements file and install Python dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 # Copy Gunicorn configuration
 COPY gunicorn_config.py /app
 
+# Copy the script to calculate workers
+COPY calculate_workers.py /app
+
+# Copy the rest of the application code
+COPY . .
+
 # Expose the application port
 EXPOSE 5001
 
-# Run the app with Gunicorn
-CMD ["gunicorn", "-c", "gunicorn_config.py", "stt_service:app"]
+# Set the entrypoint to use Gunicorn with dynamic workers
+CMD ["sh", "-c", "gunicorn -c gunicorn_config.py --workers $(python3 calculate_workers.py) stt_service:app"]
