@@ -3,6 +3,9 @@ FROM lmsysorg/sglang:latest
 # Set the working directory
 WORKDIR /app
 
+# Set environment variable for memory management
+ENV PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
 # Copy requirements file and install Python dependencies
 COPY requirements.txt . 
 RUN pip install -r requirements.txt
