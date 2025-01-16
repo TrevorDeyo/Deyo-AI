@@ -20,11 +20,12 @@ services:
       - "5001:5001"
     container_name: vector-db
 
-  ollama-phi4:
-    image: microsoft/phi4:latest
-    container_name: ollama-phi4
+  phi4:
+    build:
+      context: ./phi4
     ports:
       - "6000:6000"
+    container_name: phi4
     deploy:
       resources:
         reservations:
@@ -41,6 +42,6 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - ollama-phi4
+      - phi4
       - whisper-stt
       - vectordb
