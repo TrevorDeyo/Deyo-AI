@@ -15,11 +15,12 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory
 WORKDIR /app
 
-# Install required Python packages
-RUN pip3 install transformers torch gunicorn
+# Copy requirements file and install Python packages
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
 
 # Copy the rest of the application code
-COPY . /phi4.py
+COPY . .
 
 # Expose the port the app runs on
 EXPOSE 6000
