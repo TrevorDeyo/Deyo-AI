@@ -1,6 +1,9 @@
 # Use an official CUDA runtime as a parent image
 FROM nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04
 
+# Set non-interactive mode for apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install Python and other dependencies
 RUN apt-get update && apt-get install -y \
     python3.9 \
