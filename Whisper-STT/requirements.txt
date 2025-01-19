@@ -1,8 +1,4 @@
 flask
 openai-whisper==20240930
-numpy
-scipy
-triton==3.0.0
 torch
-torchvision
 gunicorn
