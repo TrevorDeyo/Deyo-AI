@@ -29,7 +29,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 24g
+          memory: 32g
         reservations:
           devices:
             - driver: nvidia
