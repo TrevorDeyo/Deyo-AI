@@ -28,6 +28,8 @@ services:
     container_name: phi4
     deploy:
       resources:
+        limits:
+          memory: 24g
         reservations:
           devices:
             - driver: nvidia
