@@ -26,10 +26,12 @@ services:
     ports:
       - "6000:6000"
     container_name: phi4
+    volumes:
+      - model_data:/models
     deploy:
       resources:
         limits:
-          memory: 32g
+          memory: 24g
         reservations:
           devices:
             - driver: nvidia
@@ -47,3 +49,6 @@ services:
       - phi4
       - whisper-stt
       - vectordb
+
+volumes:
+  model_data:
