@@ -1,0 +1,28 @@
+# Use an official CUDA runtime as a parent image
+FROM nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04
+
+# Set non-interactive mode for apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Python and other dependencies
+RUN apt-get update && apt-get install -y \
+    python3 python3-venv python3-pip git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements file first to leverage Docker cache
+COPY requirements.txt .
+
+# Install Python packages
+RUN pip3 install -r requirements.txt
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 7000
+
+# Command to run the application
+CMD ["python3", "llama_3-2_3b.py"]
