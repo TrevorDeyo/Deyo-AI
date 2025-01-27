@@ -27,11 +27,11 @@ services:
       - "6000:6000"
     container_name: phi4
     volumes:
-      - model_data:/models
+      - huggingface_cache:/root/.cache/huggingface
     deploy:
       resources:
         limits:
-          memory: 24g
+          memory: 32g
         reservations:
           devices:
             - driver: nvidia
@@ -51,4 +51,4 @@ services:
       - vectordb
 
 volumes:
-  model_data:
+  huggingface_cache:
