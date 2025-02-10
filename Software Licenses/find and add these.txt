@@ -6,3 +6,4 @@ cuda docker
 numpy
 gunicorn
 nginx
+Qqrant

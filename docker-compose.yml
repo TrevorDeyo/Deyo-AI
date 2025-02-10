@@ -1,23 +1,4 @@
 services:
-
-  llama:
-    build:
-      context: ./Llama_3-2_3b
-    ports:
-      - "7000:7000"
-    container_name: llama
-    volumes:
-      - LLaMA_3.2_3b:/root/.cache/huggingface
-    deploy:
-      resources:
-        limits:
-          memory: 16g
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-
   whisper-stt:
     build:
       context: ./Whisper-STT
@@ -50,7 +31,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 16g
+          memory: 32g
         reservations:
           devices:
             - driver: nvidia
@@ -68,8 +49,6 @@ services:
       - phi4
       - whisper-stt
       - vectordb
-      - llama
 
 volumes:
   phi4_cache:
-  LLaMA_3.2_3b:
