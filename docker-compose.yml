@@ -1,4 +1,9 @@
 services:
+
+  web:
+    build: ./webapp
+    ports:
+      - "5000:5000"
   whisper-stt:
     build:
       context: ./Whisper-STT

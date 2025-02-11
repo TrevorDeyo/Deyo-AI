@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dockerized Web App</title>
+</head>
+<body>
+    <h1>Welcome to the Dockerized Web App!</h1>
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.username }}!</p>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('payment') }}">Make a Payment</a>
+        <a href="{{ url_for('models') }}">Select Model</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</body>
+</html>

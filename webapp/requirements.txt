@@ -1,0 +1,8 @@
+flask==2.0.1
+Werkzeug==2.0.1
+flask_sqlalchemy==2.5.1
+sqlalchemy==1.4.22
+flask_bcrypt
+flask_login
+stripe
+gunicorn
